@@ -15,7 +15,7 @@ class ActiveTodoCountState extends Equatable {
 
   @override
   // TODO: implement props
-  List<Object> get props => [activeTodoCount];
+  List<Object?> get props => [activeTodoCount];
 
   ActiveTodoCountState copyWith({
     int? activeTodoCount,

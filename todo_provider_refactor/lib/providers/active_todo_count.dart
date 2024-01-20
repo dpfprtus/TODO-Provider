@@ -29,26 +29,14 @@ class ActiveTodoCountState extends Equatable {
   bool get stringify => true;
 }
 
-class ActiveTodoCount with ChangeNotifier {
-  late ActiveTodoCountState _state;
-  final int intialActiveTodoCount;
+class ActiveTodoCount {
+  final TodoList todoList;
 
-  ActiveTodoCount({required this.intialActiveTodoCount}) {
-    print('initialActiveTodoCount: $intialActiveTodoCount');
-    _state = ActiveTodoCountState(activeTodoCount: intialActiveTodoCount);
-  }
+  ActiveTodoCount({required this.todoList});
 
-  ActiveTodoCountState get state => _state;
-
-  //Proxy Provider 사용해야함, completed되지 않은 todo의 갯수를 계산
-  void update(TodoList todoList) {
-    print(todoList.state);
-    final int newActiveTodoCount = todoList.state.todos
-        .where((Todo todo) => !todo.completed)
-        .toList()
-        .length;
-    _state = _state.copyWith(activeTodoCount: newActiveTodoCount);
-    print(state);
-    notifyListeners();
-  }
+  ActiveTodoCountState get state => ActiveTodoCountState(
+      activeTodoCount: todoList.state.todos
+          .where((Todo todo) => !todo.completed)
+          .toList()
+          .length);
 }
