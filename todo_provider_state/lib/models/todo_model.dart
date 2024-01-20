@@ -13,7 +13,6 @@ class Todo extends Equatable {
       : id = id ?? uuid.v4();
 
   @override
-  // TODO: implement props
   List<Object> get props => [id, desc, completed];
 
   @override
