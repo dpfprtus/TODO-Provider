@@ -28,14 +28,14 @@ class Weather extends Equatable {
       description: weather['description'],
       icon: weather['icon'],
       temp: main['temp'],
-      tempMin: main['tempMin'],
+      tempMin: main['temp_min'],
       tempMax: main['temp_max'],
       name: '',
       country: '',
       lastUpdated: DateTime.now(),
     );
   }
-
+  //초기값을 null을 피하기 위해 만듬.
   factory Weather.initial() => Weather(
         description: '',
         icon: '',
