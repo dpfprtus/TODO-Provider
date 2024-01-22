@@ -12,6 +12,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Widget _showWeather() {
+    final state = context.watch<WeatherProvider>().state;
+    if (state.status == WeatherStatus.initial) {
+      return Center(
+        child: Text(
+          'Select a city',
+          style: TextStyle(fontSize: 20),
+        ),
+      );
+    }
+
+    if (state.status == WeatherStatus.loading) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+  }
+
   String? _city;
   @override
   Widget build(BuildContext context) {
@@ -38,9 +56,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Center(
-        child: Text('Home'),
-      ),
+      body: _showWeather(),
     );
   }
 }
