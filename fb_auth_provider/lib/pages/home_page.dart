@@ -13,11 +13,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('Home'),
+    //뒤로가기 해도 뒤로 안가짐
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: Center(
+          child: Text('Home'),
+        ),
       ),
     );
-    ;
   }
 }
