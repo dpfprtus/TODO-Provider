@@ -42,6 +42,8 @@ dependencies:
   firebase_core: ^2.24.2
   firebase_auth: ^4.16.0
   equatable: ^2.0.5
+  state_notifier: ^1.0.0
+  flutter_state_notifier: ^1.0.0
 
 dev_dependencies:
   flutter_test:

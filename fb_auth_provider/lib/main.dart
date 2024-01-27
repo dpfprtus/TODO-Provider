@@ -4,14 +4,19 @@ import 'package:fb_auth_provider/pages/signin_page.dart';
 import 'package:fb_auth_provider/pages/signup_page.dart';
 import 'package:fb_auth_provider/pages/splash_page.dart';
 import 'package:fb_auth_provider/providers/auth/auth_provider.dart';
+import 'package:fb_auth_provider/providers/auth/auth_state.dart';
 import 'package:fb_auth_provider/providers/profile/profile_provider.dart';
+import 'package:fb_auth_provider/providers/profile/profile_state.dart';
 import 'package:fb_auth_provider/providers/signin/signin_provider.dart';
+import 'package:fb_auth_provider/providers/signin/signin_state.dart';
 import 'package:fb_auth_provider/providers/signup/signup_provider.dart';
+import 'package:fb_auth_provider/providers/signup/signup_state.dart';
 import 'package:fb_auth_provider/repositories/auth_repository.dart';
 import 'package:fb_auth_provider/repositories/profile_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fbAuth;
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
@@ -43,27 +48,17 @@ class MyApp extends StatelessWidget {
         StreamProvider<fbAuth.User?>(
             create: (context) => context.read<AuthRepository>().user,
             initialData: null),
-        ChangeNotifierProxyProvider<fbAuth.User?, AuthProvider>(
-            create: (context) => AuthProvider(
-                  authRepository: context.read<AuthRepository>(),
-                ),
-            update: (BuildContext context, fbAuth.User? userStream,
-                    AuthProvider? authProvider) =>
-                authProvider!..update(userStream)),
-        ChangeNotifierProvider<SigninProvider>(
-          create: (context) => SigninProvider(
-            authRepository: context.read<AuthRepository>(),
-          ),
+        StateNotifierProvider<AuthProvider, AuthState>(
+          create: (context) => AuthProvider(),
         ),
-        ChangeNotifierProvider<SignupProvider>(
-          create: (context) => SignupProvider(
-            authRepository: context.read<AuthRepository>(),
-          ),
+        StateNotifierProvider<SigninProvider, SigninState>(
+          create: (context) => SigninProvider(),
         ),
-        ChangeNotifierProvider<ProfileProvider>(
-          create: (context) => ProfileProvider(
-            profileRepository: context.read<ProfileRepository>(),
-          ),
+        StateNotifierProvider<SignupProvider, SignupState>(
+          create: (context) => SignupProvider(),
+        ),
+        StateNotifierProvider<ProfileProvider, ProfileState>(
+          create: (context) => ProfileProvider(),
         )
       ],
       child: MaterialApp(
